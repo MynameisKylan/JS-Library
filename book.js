@@ -25,7 +25,6 @@ function displayBooks() {
   for (let i=0; i < myLibrary.length; i++) {
     let bookItem = document.createElement('li');
     bookItem.classList.add('book');
-    bookItem.id = i;
 
     for (let value of Object.values(myLibrary[i])) {
       if (typeof value !== 'function') {
@@ -36,8 +35,21 @@ function displayBooks() {
       }
     }
 
+    // delete button
+    let deleteButton = document.createElement('button');
+    deleteButton.appendChild(document.createTextNode('Delete'))
+    deleteButton.classList.add('delete');
+    deleteButton.id = i
+    deleteButton.setAttribute('onclick', 'deleteBook(this.id)')
+    bookItem.appendChild(deleteButton);
+
     booklist.appendChild(bookItem);
   }
+}
+
+function deleteBook(id) {
+  myLibrary.splice(id, 1);
+  displayBooks();
 }
 
 // Display New Book Form on click
@@ -47,7 +59,7 @@ btn.onclick = () => container.style.display = 'flex';
 
 // Close form on clicking 'X'
 let closeBtn = document.getElementById('close');
-closeBtn.onclick = () => container.style.display = 'none'
+closeBtn.onclick = () => container.style.display = 'none';
 
 // Add book to library on click
 let addBtn = document.getElementById('add-book-btn');
@@ -56,6 +68,8 @@ addBtn.onclick = (event) => {
   let form = document.getElementById('book-form');
   let newBook = new Book(form.title.value, form.author.value, parseInt(form.pages.value), form.read.checked);
   addBookToLibrary(newBook);
+  form.reset();
+  container.style.display = 'none';
   displayBooks();
 }
 
