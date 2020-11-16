@@ -29,8 +29,16 @@ function displayBooks() {
     for (let value of Object.values(myLibrary[i])) {
       if (typeof value !== 'function') {
         let element = document.createElement('p');
-        let text = typeof value === 'number' ? value + ' pages' : typeof value === 'boolean' ? 'Read: ' + value : value
-        element.appendChild(document.createTextNode(text));
+        if (typeof value === 'boolean') {
+          let readBtn = document.createElement('button')
+          readBtn.appendChild(document.createTextNode(value === true ? 'Read' : 'Not Read'));
+          readBtn.id = i;
+          readBtn.setAttribute('onclick', 'toggleRead(this.id)');
+          element.appendChild(readBtn);
+        } else {
+          let text = typeof value === 'number' ? value + ' pages' : value
+          element.appendChild(document.createTextNode(text));
+        }
         bookItem.appendChild(element);
       }
     }
@@ -49,6 +57,12 @@ function displayBooks() {
 
 function deleteBook(id) {
   myLibrary.splice(id, 1);
+  displayBooks();
+}
+
+function toggleRead(id) {
+  let book = myLibrary[id];
+  book.read = book.read ? false : true;
   displayBooks();
 }
 
