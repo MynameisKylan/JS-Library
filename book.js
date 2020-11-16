@@ -17,11 +17,17 @@ function addBookToLibrary(book) {
 function displayBooks() {
   let booklist = document.getElementById('booklist');
 
-  for (let book of myLibrary) {
+  // Clear existing display
+  while (booklist.firstChild) {
+    booklist.removeChild(booklist.firstChild);
+  }
+
+  for (let i=0; i < myLibrary.length; i++) {
     let bookItem = document.createElement('li');
     bookItem.classList.add('book');
+    bookItem.id = i;
 
-    for (let value of Object.values(book)) {
+    for (let value of Object.values(myLibrary[i])) {
       if (typeof value !== 'function') {
         let element = document.createElement('p');
         let text = typeof value === 'number' ? value + ' pages' : typeof value === 'boolean' ? 'read: ' + value : value
@@ -37,7 +43,11 @@ function displayBooks() {
 // Display New Book Form on click
 let container = document.getElementById('form-container');
 let btn = document.getElementById('new-book-btn');
-btn.onclick = () => container.style.display = 'block';
+btn.onclick = () => container.style.display = 'flex';
+
+// Close form on clicking 'X'
+let closeBtn = document.getElementById('close');
+closeBtn.onclick = () => container.style.display = 'none'
 
 // Add book to library on click
 let addBtn = document.getElementById('add-book-btn');
@@ -46,7 +56,6 @@ addBtn.onclick = (event) => {
   let form = document.getElementById('book-form');
   let newBook = new Book(form.title.value, form.author.value, parseInt(form.pages.value), form.read.checked);
   addBookToLibrary(newBook);
-  console.log(myLibrary);
   displayBooks();
 }
 
