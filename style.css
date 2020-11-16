@@ -1,3 +1,31 @@
+h1 {
+  text-align:center;
+}
+
+#new-book-btn {
+  display:block;
+  margin: 0 auto;
+}
+
+#booklist {
+  display:flex;
+  list-style:none;
+  width:80%;
+  flex-wrap:wrap;
+  margin:0 auto;
+  padding:0;
+  justify-content:space-around;
+}
+
+.book {
+  margin:10px;
+  width: 240px;
+  background-color: lightblue;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 10px;
+  padding:5px;
+}
+
 #form-container {
   display:none;
   position:absolute;

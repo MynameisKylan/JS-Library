@@ -29,7 +29,7 @@ function displayBooks() {
     for (let value of Object.values(myLibrary[i])) {
       if (typeof value !== 'function') {
         let element = document.createElement('p');
-        let text = typeof value === 'number' ? value + ' pages' : typeof value === 'boolean' ? 'read: ' + value : value
+        let text = typeof value === 'number' ? value + ' pages' : typeof value === 'boolean' ? 'Read: ' + value : value
         element.appendChild(document.createTextNode(text));
         bookItem.appendChild(element);
       }
