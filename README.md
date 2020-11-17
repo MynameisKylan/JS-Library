@@ -10,3 +10,5 @@ Skills researched and practiced in this exercise:
 - Firestore setup and basic CRUD operations
 
 Made as part of The Odin Project: https://www.theodinproject.com/courses/javascript/lessons/library
+
+Preview live app: https://js-library-1a270.web.app/
