@@ -1,19 +1,5 @@
-// const firebase = require("firebase");
-// Required for side-effects
-// require("firebase/firestore");
-
 const db = firebase.firestore();
 const library = db.collection('books');
-
-// let myLibrary = firebase.database().ref().child('books');
-// myLibrary.on('value', (snapshot) => console.log(snapshot.value));
-// console.log(myLibrary);
-// db.collection('books').add({
-library.get().then((querySnapshot) => {
-    querySnapshot.forEach((book) => {
-      console.log(book.data());
-    });
-  });
 
 function Book(title, author, numPages, read) {
   this.title = title,
@@ -43,7 +29,6 @@ function displayBooks() {
     booklist.removeChild(booklist.firstChild);
   }
 
-  let i = 0
   library.get().then((querySnapshot) => {
     querySnapshot.forEach(book => {
       bookData = book.data();
@@ -58,7 +43,8 @@ function displayBooks() {
             readBtn.appendChild(document.createTextNode(value === true ? 'Read' : 'Not Read'));
             readBtn.id = book.id;
             readBtn.setAttribute('onclick', 'toggleRead(this.id)');
-            element.appendChild(readBtn);
+            readBtn.style.order = 4;
+            element = readBtn;
           } else {
             let text = typeof value === 'number' ? value + ' pages' : value
             element.appendChild(document.createTextNode(text));
@@ -69,12 +55,12 @@ function displayBooks() {
 
       // delete button
       let deleteButton = document.createElement('button');
-      deleteButton.appendChild(document.createTextNode('Delete'))
+      deleteButton.appendChild(document.createTextNode('Delete'));
       deleteButton.classList.add('delete');
       deleteButton.id = book.id;
-      deleteButton.setAttribute('onclick', 'deleteBook(this.id)')
+      deleteButton.setAttribute('onclick', 'deleteBook(this.id)');
+      deleteButton.style.order = 5;
       bookItem.appendChild(deleteButton);
-      i++;
 
       booklist.appendChild(bookItem);
       })
@@ -116,6 +102,4 @@ addBtn.onclick = (event) => {
   displayBooks();
 }
 
-let book1 = new Book('Cooked', 'Michael Pollan', 350, true);
-let book2 = new Book('How to Change Your Mind', 'Michael Pollan', 400, false);
 displayBooks();
