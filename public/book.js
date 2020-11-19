@@ -1,13 +1,16 @@
 const db = firebase.firestore();
 const library = db.collection('books');
 
-function Book(title, author, numPages, read) {
-  this.title = title,
-  this.author = author,
-  this.numPages = numPages,
-  this.read = read,
-  this.info = function() {
-    return `${title} by ${author}, ${numPages} pages, ${read ? 'read' : 'not read yet'}`
+class Book {
+  constructor(title, author, numPages, read) {
+    this.title = title
+    this.author = author
+    this.numPages = numPages
+    this.read = read
+  }
+
+  info() {
+    return `${this.title} by ${this.author}, ${this.numPages} pages, ${this.read ? 'read' : 'not read yet'}`
   }
 }
 
@@ -18,7 +21,6 @@ function addBookToLibrary(book) {
     numPages: book.numPages,
     read: book.read
   })
-  // myLibrary.push(book);
 }
 
 function displayBooks() {
